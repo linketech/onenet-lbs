@@ -1,10 +1,11 @@
 {
     "name": "onenet-lbs",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "node test.js",
+        "pub": "npm publish --registry https://registry.npmjs.org"
     },
     "keywords": [],
     "author": "",
@@ -15,7 +16,6 @@
         "eslint-plugin-import": "^2.22.1"
     },
     "dependencies": {
-        "ramda": "^0.27.1",
         "request": "^2.88.2",
         "request-promise": "^4.2.6"
     }

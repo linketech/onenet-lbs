@@ -1,5 +1,4 @@
 const { promisify } = require('util')
-const R = require('ramda')
 require('request')
 const rp = require('request-promise')
 
@@ -33,7 +32,7 @@ module.exports = class OnenetLBS {
 		if (error !== 'succ') {
 			throw new Error(error)
 		}
-		return R.pathOr(null, ['devices', 0], data)
+		return data && data.devices && data.devices[0] ? data.devices[0] : null
 	}
 
 	async registerDevice(sn) {
@@ -118,8 +117,12 @@ module.exports = class OnenetLBS {
 		return data
 	}
 
-	async ensureLocationTime(l) {
-		if (Date.now() - new Date(l.at).valueOf() > this.timeFrame) {
+	ensureLocationTime(l) {
+		const t = new Date(l.at).valueOf()
+		if (Number.isNaN(t)) {
+			throw new Error('location info not found')
+		}
+		if (Date.now() - t > this.timeFrame) {
 			throw new Error(`location(${l.lon},${l.lat}) at ${l.at} is out of time.`)
 		}
 	}
