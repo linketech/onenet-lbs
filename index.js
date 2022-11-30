@@ -16,10 +16,11 @@ module.exports = class OnenetLBS {
 		}
 	}
 
-	constructor(apiKey, registerCode, timeFrame = 30000) {
+	constructor(apiKey, registerCode, timeFrame = 30000, timeout = 8000) {
 		this.apiKey = apiKey
 		this.registerCode = registerCode
 		this.timeFrame = timeFrame
+		this.timeout = timeout
 	}
 
 	async getDevice(sn) {
@@ -28,6 +29,7 @@ module.exports = class OnenetLBS {
 			headers: { 'api-key': this.apiKey },
 			json: true,
 			qs: { title: sn },
+			timeout: this.timeout
 		})
 		if (error !== 'succ') {
 			throw new Error(error)
@@ -43,6 +45,7 @@ module.exports = class OnenetLBS {
 			json: true,
 			qs: { register_code: this.registerCode },
 			body: { sn, title: sn },
+			timeout: this.timeout
 		})
 		if (error !== 'succ') {
 			throw new Error(error)
@@ -76,6 +79,7 @@ module.exports = class OnenetLBS {
 					}],
 				}],
 			},
+			timeout: this.timeout
 		})
 		if (errno !== 0 || error !== 'succ') {
 			throw new Error(`errno:${errno}. ${error}`)
@@ -99,6 +103,7 @@ module.exports = class OnenetLBS {
 					}],
 				}],
 			},
+			timeout: this.timeout
 		})
 		if (errno !== 0 || error !== 'succ') {
 			throw new Error(`errno:${errno}. ${error}`)
@@ -110,6 +115,7 @@ module.exports = class OnenetLBS {
 			uri: `${OnenetLBS.Host}/devices/${deviceId}/lbs/latest${type}Location`,
 			headers: { 'api-key': this.apiKey },
 			json: true,
+			timeout: this.timeout
 		})
 		if (errno !== 0 || error !== 'succ') {
 			throw new Error(`errno:${errno}. ${error}`)
