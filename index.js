@@ -28,6 +28,7 @@ module.exports = class OnenetLBS {
 			headers: { 'api-key': this.apiKey },
 			json: true,
 			qs: { title: sn },
+			timeout: 8000
 		})
 		if (error !== 'succ') {
 			throw new Error(error)
@@ -43,6 +44,7 @@ module.exports = class OnenetLBS {
 			json: true,
 			qs: { register_code: this.registerCode },
 			body: { sn, title: sn },
+			timeout: 8000
 		})
 		if (error !== 'succ') {
 			throw new Error(error)
@@ -76,6 +78,7 @@ module.exports = class OnenetLBS {
 					}],
 				}],
 			},
+			timeout: 8000
 		})
 		if (errno !== 0 || error !== 'succ') {
 			throw new Error(`errno:${errno}. ${error}`)
@@ -99,6 +102,7 @@ module.exports = class OnenetLBS {
 					}],
 				}],
 			},
+			timeout: 8000
 		})
 		if (errno !== 0 || error !== 'succ') {
 			throw new Error(`errno:${errno}. ${error}`)
@@ -110,6 +114,7 @@ module.exports = class OnenetLBS {
 			uri: `${OnenetLBS.Host}/devices/${deviceId}/lbs/latest${type}Location`,
 			headers: { 'api-key': this.apiKey },
 			json: true,
+			timeout: 8000
 		})
 		if (errno !== 0 || error !== 'succ') {
 			throw new Error(`errno:${errno}. ${error}`)
